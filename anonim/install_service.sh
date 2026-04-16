@@ -37,8 +37,19 @@ fi
 # 2. Copy bot directory jika belum ada di path yang benar
 if [ "$BOT_DIR" != "$BOT_PATH" ]; then
     echo "📂 Menyalin bot ke $BOT_PATH..."
-    mkdir -p "$(dirname "$BOT_PATH")"
-    cp -r "$BOT_DIR"/* "$BOT_PATH/"
+    mkdir -p "$BOT_PATH"
+
+    if [ -f "$BOT_DIR/bot.py" ]; then
+        cp -f "$BOT_DIR/bot.py" "$BOT_PATH/bot.py"
+        [ -f "$BOT_DIR/.env.example" ] && cp -f "$BOT_DIR/.env.example" "$BOT_PATH/.env.example"
+        [ -f "$BOT_DIR/requirements.txt" ] && cp -f "$BOT_DIR/requirements.txt" "$BOT_PATH/requirements.txt"
+        [ -f "$BOT_DIR/telegram-relay-bot.service" ] && cp -f "$BOT_DIR/telegram-relay-bot.service" "$BOT_PATH/telegram-relay-bot.service"
+        echo "✅ File bot berhasil disalin dari $BOT_DIR"
+    else
+        echo "⚠️  bot.py tidak ditemukan di $BOT_DIR, lewati proses copy lokal."
+        echo "   Script akan lanjut dan mengunduh file yang dibutuhkan dari repository."
+    fi
+
     chown -R "$BOT_USER:$BOT_USER" "$BOT_PATH"
 fi
 
