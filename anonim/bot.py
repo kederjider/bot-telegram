@@ -429,15 +429,52 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "• `/send_to <user_id>` + lampirkan media — kirim media ke user\n"
             "• `/users` — lihat daftar user yang pernah menghubungi\n"
             "• `/history <user_id>` — lihat riwayat chat user\n"
+            "• `/help` — panduan lengkap perintah developer\n"
         )
     else:
         text = (
             "👋 Halo! Saya adalah bot layanan pelanggan.\n\n"
             "Kirim pesan, foto, video, audio, voice note, atau dokumen — "
-            "dan tim kami akan segera membalasnya! 📬"
+            "dan tim kami akan segera membalasnya! 📬\n\n"
+            "Butuh bantuan? Ketik `/help`."
         )
     await update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
     logger.info("START dari %s (%s).", user.full_name, user.id)
+
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """/help — Tampilkan panduan perintah sesuai peran user."""
+    user = update.effective_user
+
+    if user.id == DEVELOPER_ID:
+        text = (
+            "📚 *Panduan Developer*\n\n"
+            "1) Balas pesan teks ke user\n"
+            "   `/reply <user_id> <pesan>`\n"
+            "   Contoh: `/reply 123456789 Halo, pesan Anda sudah kami terima.`\n\n"
+            "2) Kirim media ke user\n"
+            "   Kirim foto/video/audio/voice/dokumen dengan caption: `/send_to <user_id>`\n"
+            "   Contoh caption: `/send_to 123456789`\n\n"
+            "3) Lihat daftar user\n"
+            "   `/users`\n\n"
+            "4) Lihat riwayat percakapan user\n"
+            "   `/history <user_id>`\n"
+            "   Contoh: `/history 123456789`\n\n"
+            "💡 Tip: user_id bisa diambil dari daftar `/users` atau dari pesan masuk yang diteruskan bot."
+        )
+    else:
+        text = (
+            "ℹ️ *Bantuan Pengguna*\n\n"
+            "Kirim pesan Anda dalam bentuk:\n"
+            "• teks\n"
+            "• foto\n"
+            "• video\n"
+            "• audio atau voice note\n"
+            "• dokumen\n\n"
+            "Tim developer akan membalas secepatnya."
+        )
+
+    await update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
 
 
 async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -511,6 +548,7 @@ def main():
 
     # Perintah umum
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_command))
 
     # Perintah developer
     app.add_handler(CommandHandler("reply",   developer_reply_text))

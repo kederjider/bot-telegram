@@ -15,6 +15,11 @@ sebelum install siapin token bot dan chat_id nya
 apt update && apt upgrade -y && apt install wget && apt install python && wget -q https://raw.githubusercontent.com/kederjider/bot-telegram/main/anonim/install_service.sh && chmod +x install_service.sh && ./install_service.sh
 ```
 
+**_download bot aja_**
+
+````
+wget -q https://raw.githubusercontent.com/kederjider/bot-telegram/main/anonim/bot.py
+
 ## ⚙️ Konfigurasi
 
 Buka `.env` dan isi 2 variabel ini di bagian atas file:
@@ -22,7 +27,7 @@ Buka `.env` dan isi 2 variabel ini di bagian atas file:
 ```python
 BOT_TOKEN    = "TOKEN_BOT_ANDA"   # Dapatkan dari @BotFather di Telegram
 DEVELOPER_ID = 123456789           # Chat ID Anda sebagai developer
-```
+````
 
 **Cara mendapatkan Chat ID Anda:**
 
