@@ -1,0 +1,19 @@
+[Unit]
+Description=Telegram Email Bot
+After=network.target
+
+[Service]
+Type=simple
+User=botuser
+WorkingDirectory=/home/botuser/telegram-email-bot
+ExecStart=/home/botuser/telegram-email-bot/.venv/bin/python /home/botuser/telegram-email-bot/email.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# keamanan tambahan
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
