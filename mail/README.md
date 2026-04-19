@@ -22,8 +22,8 @@ File utama project saat ini:
 ### Opsi A: `git clone` (disarankan)
 
 ```powershell
-git clone https://github.com/USERNAME/REPO.git
-cd REPO
+git clone https://github.com/kederjider/bot-telegram/main/mail.git
+cd mail
 ```
 
 ### Opsi B: `wget` file ZIP dari GitHub
@@ -187,10 +187,6 @@ sudo ./install.sh
 
 ```
 sudo systemctl stop telegram-email-bot.service && rm -f /home/botuser/telegram-email-bot/email.py && wget -P /home/botuser/telegram-email-bot/ https://raw.githubusercontent.com/kederjider/bot-telegram/main/mail/email.py && chmod 777 /home/botuser/telegram-email-bot/email.py && systemctl daemon-reexec && systemctl daemon-reload && systemctl start telegram-email-bot && journalctl -u telegram-email-bot -f
-```
-
-```bash
-sudo bash install.sh
 ```
 
 Script ini akan:
